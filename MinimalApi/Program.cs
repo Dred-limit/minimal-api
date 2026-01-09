@@ -12,12 +12,13 @@ app.MapGet("/fruit/{id}", (string id) =>
     _fruit.TryGetValue(id, out var fruit)
     ? TypedResults.Ok(fruit)
     : Results.Problem(statusCode: 404))
-    .AddEndpointFilter<IdValidationFilter>();
+    .AddEndpointFilter<IdValidationFilter>()
+    .WithName("GetFruitById");
 
-// именованный маршрут и LinkGenerator
+/* именованный маршрут и LinkGenerator
 app.MapGet("/fruit/{id}", (string id) => $"The details is {id}")
    .WithName("GetFruitById");
-
+*/
 
 app.MapPost("/fruit/{id}", (string id, Fruit fruit, LinkGenerator links) =>
     _fruit.TryAdd(id, fruit)
@@ -43,6 +44,7 @@ app.MapDelete("/fruit/{id}", (string id) =>
     return Results.NoContent();
 });
 app.Run();
+
 record Fruit(string Name, int Stock);
 
 class IdValidationFilter : IEndpointFilter
