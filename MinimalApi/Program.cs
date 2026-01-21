@@ -12,7 +12,7 @@ builder.Services.AddDbContext<FruitDbContext>(options =>
 var app = builder.Build();
 
 
-app.MapGet("/fruit", () => _fruit);
+/*app.MapGet("/fruit", () => _fruit);
 
 app.MapGet("/fruit/{id}", (string id) =>
     _fruit.TryGetValue(id, out var fruit)
@@ -25,7 +25,7 @@ app.MapGet("/fruit/{id}", (string id) =>
 app.MapGet("/fruit/{id}", (string id) => $"The details is {id}")
    .WithName("GetFruitById");
 */
-
+/*
 app.MapPost("/fruit/{id}", (string id, Fruit fruit, LinkGenerator links) =>
     _fruit.TryAdd(id, fruit)
     ? TypedResults.Created( 
@@ -49,6 +49,7 @@ app.MapDelete("/fruit/{id}", (string id) =>
     _fruit.TryRemove(id, out _);
     return Results.NoContent();
 });
+*/
 app.Run();
 
 
