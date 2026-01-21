@@ -1,9 +1,15 @@
 using System.Collections.Concurrent;
+using Microsoft.EntityFrameworkCore;
+using MinimalApi.Data;
+using MinimalApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
 
-var _fruit = new ConcurrentDictionary<string, Fruit>();
+builder.Services.AddDbContext<FruitDbContext>(options =>
+    options.UseSqlite("Data Source=fruit.db")
+);
+
+var app = builder.Build();
 
 
 app.MapGet("/fruit", () => _fruit);
@@ -45,7 +51,6 @@ app.MapDelete("/fruit/{id}", (string id) =>
 });
 app.Run();
 
-record Fruit(string Name, int Stock);
 
 class IdValidationFilter : IEndpointFilter
 {
